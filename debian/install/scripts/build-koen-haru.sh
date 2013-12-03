@@ -37,7 +37,7 @@ cd $DIRBUILD
 #haruVar=" -D LIBHARU_SHARED=ON -D LIBHARU_STATIC=ON -D LIBHARU_EXAMPLES=OFF -D DEVPAK=OFF  -D CMAKE_INSTALL_INCLUDEDIR=$IPREFIX/$APPNAME/include/hpdf ../../"
 haruVar=" -D LIBHARU_SHARED=ON -D LIBHARU_STATIC=ON -D LIBHARU_EXAMPLES=OFF -D DEVPAK=OFF  -D CMAKE_INSTALL_INCLUDEDIR=$IPREFIX/$APPNAME/include ../../"
 
-if [ "buildDebug" = "ON" ]
+if [ "$buildDebug" = "ON" ]
  then
    [ ! -d "Debug" ] && mkdir Debug
    cd Debug

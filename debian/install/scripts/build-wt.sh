@@ -73,7 +73,7 @@ EOF
 
 #echo $varCmake
 
-if [ "buildDebug" = "ON" ]
+if [ "$buildDebug" = "ON" ]
  then
    [ ! -d "Debug" ] && mkdir Debug
    cd Debug
