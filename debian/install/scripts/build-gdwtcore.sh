@@ -23,7 +23,7 @@ fi
 
 if [ ! -d "$APPNAME" ] 
  then
-   git clone git@github.com:Wittyshare/$APPNAME.git
+   git clone https://github.com/Wittyshare/gdwtcore.git
    res1=$?
    [ "$res1" != "0" ] && exit 1;
 fi

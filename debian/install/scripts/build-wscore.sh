@@ -21,7 +21,7 @@ if [ ! -d "$APPNAME" ]
 fi
 cd $APPNAME/
 
-git pull
+git pull origin master
 res1=$?
 [ "$res1" != "0" ] && exit 1;
 
@@ -33,22 +33,13 @@ DIRBUILD=`pwd`/"build-"`uname -m`"-"`uname -s`
 [ ! -d "$DIRBUILD" ] && mkdir $DIRBUILD
 cd $DIRBUILD
 
-varCmake="-D APPNAME=$APPNAME -D WS_PREFIX=/usr/local/wittyshare -D CONNECTOR_FCGI=ON -D CMAKE_INSTALL_PREFIX=$IPREFIX/$APPNAME -D BUILD_LIB_STATIC=false -D BUILD_LIB_SHARED=true -D HARU_PREFIX=/usr/local/libharu -D GDWT_PREFIX=/usr/local/wt -D GDCORE_PREFIX=/usr/local/gdcore -D GDWTCORE_PREFIX=/usr/local/gdwtcore -DWSCORE_PREFIX=/usr/local/wscore ../../"
+varCmake="-D APPNAME=$APPNAME -D WS_PREFIX=/usr/local/wittyshare -D CMAKE_INSTALL_PREFIX=$IPREFIX/$APPNAME -D BUILD_LIB_STATIC=false -D BUILD_LIB_SHARED=true -D HARU_PREFIX=/usr/local/libharu -D GDWT_PREFIX=/usr/local/wt -D GDCORE_PREFIX=/usr/local/gdcore ../../"
 
 if [ "$buildDebug" = "ON" ]
  then
    [ ! -d "Debug" ] && mkdir Debug
    cd Debug
    cmake -D CMAKE_BUILD_TYPE=Debug $varCmake
-   res1=$?
-   [ "$res1" != "0" ] && exit 1;
-   cd src/WsModule
-   make
-   res1=$?
-   [ "$res1" != "0" ] && exit 1;
-   $CMDROOT make install
-   cd  ../../
-   
    res1=$?
    [ "$res1" != "0" ] && exit 1;
    make
@@ -61,21 +52,11 @@ if [ "$buildDebug" = "ON" ]
    cd ../
 fi
 
-set -x
 if [ "$buildRelease" = "ON" ]
  then
    [ ! -d "Release" ] && mkdir Release
    cd Release
    cmake -D CMAKE_BUILD_TYPE=Release $varCmake
-   res1=$?
-   [ "$res1" != "0" ] && exit 1;
-   cd src/WsModule
-   make
-   res1=$?
-   [ "$res1" != "0" ] && exit 1;
-   $CMDROOT make install
-   cd  ../../
-   
    res1=$?
    [ "$res1" != "0" ] && exit 1;
    make

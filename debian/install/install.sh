@@ -53,7 +53,7 @@ sleep 1
 [ ! -d "$ROOTDEV/koen-haru" ] && mkdir $ROOTDEV/koen-haru
 cd $ROOTDEV/koen-haru
 export APPNAME=libharu
-$ROOTDEV/install/scripts/build-koen-haru.sh
+#$ROOTDEV/install/scripts/build-koen-haru.sh
 
 # On installe wt
 #===============
@@ -63,15 +63,16 @@ echo
 sleep 1
 cd $ROOTDEV/
 export APPNAME=wt
-$ROOTDEV/install/scripts/build-wt.sh
+#$ROOTDEV/install/scripts/build-wt.sh
 
 # On installe tiny_mce
 #=====================
-$ROOTDEV/install/scripts/build-tinymce.sh
+#$ROOTDEV/install/scripts/build-tinymce.sh
 
 # On installe gdcore, gdwtcore, wittyShare :
 #===========================================
-for project in gdcore gdwtcore wittyshare
+#for project in gdcore gdwtcore wscore fsdaemon wittyshare 
+for project in wittyshare 
  do
    echo
    echo "Start $project build"
