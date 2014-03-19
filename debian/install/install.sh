@@ -71,8 +71,7 @@ export APPNAME=wt
 
 # On installe gdcore, gdwtcore, wittyShare :
 #===========================================
-#for project in gdcore gdwtcore wscore fsdaemon wittyshare 
-for project in wittyshare 
+for project in gdcore gdwtcore wscore fsdaemon wittyshare 
  do
    echo
    echo "Start $project build"
