@@ -91,6 +91,7 @@ if [ "$buildDebug" = "ON" ]
 fi
 
 if [ "$buildRelease" = "ON" ]
+  then
 	[ ! -d "Release" ] && mkdir Release
 	cd Release
 	cmake -D CMAKE_INSTALL_PREFIX=$IPREFIX/$APPNAME -D CMAKE_BUILD_TYPE=Release   $varCmake
