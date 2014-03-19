@@ -1,4 +1,4 @@
-export buildRelease=OFF
+export buildRelease=ON
 export buildDebug=ON
 export runAptitude=OFF
 export cleanUpGit=OFF

@@ -55,19 +55,20 @@ if [ "$buildDebug" = "ON" ]
    cd ../
 fi
    
-[ ! -d "Release" ] && mkdir Release
-cd Release
-#cmake -D APPNAME=$APPNAME -D CMAKE_INSTALL_PREFIX=$IPREFIX/$APPNAME -D BUILD_LIB_STATIC=true -D BUILD_LIB_SHARED=true -D CMAKE_BUILD_TYPE=Release $haruVar
-cmake -D CMAKE_INSTALL_PREFIX=$IPREFIX/$APPNAME -D CMAKE_BUILD_TYPE=Release $haruVar
-res1=$?
-[ "$res1" != "0" ] && exit 1;
-make
-res1=$?
-[ "$res1" != "0" ] && exit 1;
-$CMDROOT make install
-res1=$?
-[ "$res1" != "0" ] && exit 1;
-
+if [ "$buildRelease" = "ON" ]
+	[ ! -d "Release" ] && mkdir Release
+	cd Release
+	#cmake -D APPNAME=$APPNAME -D CMAKE_INSTALL_PREFIX=$IPREFIX/$APPNAME -D BUILD_LIB_STATIC=true -D BUILD_LIB_SHARED=true -D CMAKE_BUILD_TYPE=Release $haruVar
+	cmake -D CMAKE_INSTALL_PREFIX=$IPREFIX/$APPNAME -D CMAKE_BUILD_TYPE=Release $haruVar
+	res1=$?
+	[ "$res1" != "0" ] && exit 1;
+	make
+	res1=$?
+	[ "$res1" != "0" ] && exit 1;
+	$CMDROOT make install
+	res1=$?
+	[ "$res1" != "0" ] && exit 1;
+fi
 echo "$IPREFIX/$APPNAME"/lib | $CMDROOT tee /etc/ld.so.conf.d/$APPNAME.conf
 $CMDROOT ldconfig
 

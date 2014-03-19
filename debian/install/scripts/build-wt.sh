@@ -90,28 +90,30 @@ if [ "$buildDebug" = "ON" ]
    cd ../
 fi
 
-[ ! -d "Release" ] && mkdir Release
-cd Release
-cmake -D CMAKE_INSTALL_PREFIX=$IPREFIX/$APPNAME -D CMAKE_BUILD_TYPE=Release   $varCmake
-res1=$?
-[ "$res1" != "0" ] && exit 1;
-make
-res1=$?
-[ "$res1" != "0" ] && exit 1;
-$CMDROOT make install
-res1=$?
-[ "$res1" != "0" ] && exit 1;
+if [ "$buildRelease" = "ON" ]
+	[ ! -d "Release" ] && mkdir Release
+	cd Release
+	cmake -D CMAKE_INSTALL_PREFIX=$IPREFIX/$APPNAME -D CMAKE_BUILD_TYPE=Release   $varCmake
+	res1=$?
+	[ "$res1" != "0" ] && exit 1;
+	make
+	res1=$?
+	[ "$res1" != "0" ] && exit 1;
+	$CMDROOT make install
+	res1=$?
+	[ "$res1" != "0" ] && exit 1;
 
-echo "$IPREFIX/$APPNAME"/lib | $CMDROOT tee /etc/ld.so.conf.d/$APPNAME.conf
-$CMDROOT ldconfig
+	echo "$IPREFIX/$APPNAME"/lib | $CMDROOT tee /etc/ld.so.conf.d/$APPNAME.conf
+	$CMDROOT ldconfig
+fi
 
 # On adapte le fichier de configuration de wt pour nos besoins propres
 cat $ROOTDEV/wt/wt_config.xml.in | sed -e "s#<num-threads>1</num-threads>#<num-threads>5</num-threads>#"  \
-                                       -e "s#<property name=\"resourcesURL\">resources/</property>#<property name=\"resourcesURL\">/wt/resources/</property>#" \
-                                       -e "s#<max-request-size>128</max-request-size>#<max-request-size>8192</max-request-size>#" \
-                                       -e "s#<run-directory>\${RUNDIR}</run-directory>#<run-directory>/var/run/wt</run-directory>#" \
-                                       -e "s#<timeout>600</timeout>#<timeout>600</timeout>\n <bootstrap-timeout>60</bootstrap-timeout>#" \
-                                       > wittyshare.config.xml
+	-e "s#<property name=\"resourcesURL\">resources/</property>#<property name=\"resourcesURL\">/wt/resources/</property>#" \
+	-e "s#<max-request-size>128</max-request-size>#<max-request-size>8192</max-request-size>#" \
+	-e "s#<run-directory>\${RUNDIR}</run-directory>#<run-directory>/var/run/wt</run-directory>#" \
+	-e "s#<timeout>600</timeout>#<timeout>600</timeout>\n <bootstrap-timeout>60</bootstrap-timeout>#" \
+	> wittyshare.config.xml
 $CMDROOT cp wittyshare.config.xml /etc/wt/wt_config.xml
 #rm wittyshare.config.xml
 
